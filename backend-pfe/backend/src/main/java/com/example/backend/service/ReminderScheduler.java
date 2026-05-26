@@ -1,0 +1,55 @@
+package com.example.backend.service;
+
+import com.example.backend.entity.Appointment;
+import com.example.backend.repository.AppointmentRepository;
+import com.example.backend.service.AppointmentService;
+import com.example.backend.service.EmailService;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Service
+public class ReminderScheduler {
+
+    private final AppointmentRepository repository;
+    private final EmailService emailService;
+
+    public ReminderScheduler(AppointmentRepository repository,
+                             EmailService emailService) {
+        this.repository = repository;
+        this.emailService = emailService;
+    }
+
+    // 🔥 every hour
+    @Scheduled(cron = "0 0 * * * *")
+    public void sendReminders() {
+
+        System.out.println("⏰ CHECKING REMINDERS...");
+
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime limit = now.plusHours(24);
+
+        List<Appointment> list = repository.findAppointmentsForReminder(limit);
+
+        for (Appointment a : list) {
+
+            if (a.getCitizen() == null) continue;
+
+            emailService.sendEmail(
+                    a.getCitizen().getEmail(),
+                    "📅 Rappel de rendez-vous",
+                    "Bonjour " + a.getCitizen().getName() +
+                            "\n\nVotre rendez-vous est prévu le " +
+                            a.getStartDateTime() +
+                            "\n\nMerci de vous présenter à l’heure."
+            );
+
+            a.setReminderSent(true);
+            repository.save(a);
+        }
+
+        System.out.println("✅ REMINDERS DONE: " + list.size());
+    }
+}

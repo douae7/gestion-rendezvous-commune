@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans text-gray-800 bg-gray-50 antialiased;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium px-5 py-2.5 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.98];
+  }
+  .btn-secondary {
+    @apply bg-white hover:bg-gray-50 text-gray-700 font-medium px-5 py-2.5 rounded-lg border border-gray-300 transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.98];
+  }
+  .btn-danger {
+    @apply bg-red-600 hover:bg-red-700 text-white font-medium px-5 py-2.5 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.98];
+  }
+  .btn-success {
+    @apply bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-5 py-2.5 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-[0.98];
+  }
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-100 transition-shadow hover:shadow-md;
+  }
+  .input-field {
+    @apply w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 outline-none bg-white;
+  }
+  .sidebar-link {
+    @apply flex items-center gap-3 px-4 py-2.5 rounded-lg text-gray-600 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 font-medium text-sm;
+  }
+  .sidebar-link-active {
+    @apply flex items-center gap-3 px-4 py-2.5 rounded-lg bg-primary-600 text-white font-medium text-sm shadow-sm;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+  }
+}
+
+.fc .fc-toolbar-title { font-size: 1.1rem !important; font-weight: 600 !important; }
+.fc .fc-button-primary { background-color: #2563eb !important; border-color: #2563eb !important; }
+.fc .fc-button-primary:hover { background-color: #1d4ed8 !important; border-color: #1d4ed8 !important; }
+.fc .fc-button-primary:not(:disabled).fc-button-active { background-color: #1e40af !important; border-color: #1e40af !important; }
+.fc .fc-daygrid-day-number { color: #374151 !important; }
+.fc .fc-col-header-cell-cushion { color: #374151 !important; }
+
+.dark body { @apply bg-gray-900 text-gray-100; }
+.dark .card { @apply bg-gray-800 border-gray-700; }
+
+@keyframes slide-in {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.25s ease-out;
+}
